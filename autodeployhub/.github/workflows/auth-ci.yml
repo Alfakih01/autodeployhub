@@ -2,11 +2,11 @@ name: Auth Service CI/CD
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'services/auth-service/**'
       - '.github/workflows/auth-ci.yml'
-    branches:
-      - main
 
 jobs:
   build-and-deploy:
@@ -25,10 +25,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies and test (placeholder)
+      - name: Install dependencies (placeholder for testing)
         run: |
           pip install -r services/auth-service/requirements.txt
-          echo "TODO: Add tests here"
+          echo "No tests yet"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -40,7 +40,7 @@ jobs:
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag, and push Docker image to ECR
+      - name: Build and push Docker image
         run: |
           IMAGE_NAME=auth-service
           IMAGE_TAG=latest
