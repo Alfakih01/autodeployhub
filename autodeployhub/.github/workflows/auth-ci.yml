@@ -6,8 +6,9 @@ on:
       - main
 
 jobs:
-  test:
+  hello:
     runs-on: ubuntu-latest
     steps:
-      - name: Say hello
-        run: echo "✅ CI workflow triggered successfully"
+      - name: Hello
+        run: echo "✅ GitHub Actions is working!"
+
