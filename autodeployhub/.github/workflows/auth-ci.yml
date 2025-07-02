@@ -1,4 +1,4 @@
-name: Auth Service CI/CD
+name: Auth CI/CD Test
 
 on:
   push:
@@ -9,5 +9,5 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Print a message
-        run: echo "✅ Workflow is working!"
+      - name: Say hello
+        run: echo "✅ CI workflow triggered successfully"
