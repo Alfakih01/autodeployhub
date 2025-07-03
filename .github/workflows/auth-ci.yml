@@ -7,7 +7,12 @@ on:
 
 jobs:
   build-and-push:
+    name: Build & Push Docker image to ECR
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -23,7 +28,14 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ECR_REPO_URI }} ./services/auth-service
-          docker push ${{ secrets.ECR_REPO_URI }}
+          docker build -t ${{ secrets.ECR_REPO_URI }}:latest ./services/auth-service
+
+      - name: Tag image
+        run: |
+          docker tag ${{ secrets.ECR_REPO_URI }}:latest ${{ secrets.ECR_REPO_URI }}:latest
+
+      - name: Push to ECR
+        run: |
+          docker push ${{ secrets.ECR_REPO_URI }}:latest
